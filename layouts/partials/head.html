@@ -30,8 +30,10 @@
   {{ partial "head_fonts.html" . }}
 
   <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+  {{ $iconFavicon := resources.Get "icons/favicon.ico" | fingerprint "sha512" }}
+  {{ $iconAppleTouchIcon := resources.Get "icons/apple-touch-icon.png" | fingerprint "sha512" }}
+  <link rel="icon" href="{{ $iconFavicon.RelPermalink }}" integrity="{{ $iconFavicon.Data.Integrity }}" />
+  <link rel="apple-touch-icon" href="{{ $iconAppleTouchIcon.RelPermalink }}" integrity="{{ $iconAppleTouchIcon.Data.Integrity }}" />
 
   <!-- RSS etc -->
   {{ range .AlternativeOutputFormats -}}
